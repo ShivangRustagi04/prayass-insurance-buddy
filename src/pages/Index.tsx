@@ -20,12 +20,12 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      <header className="border-b bg-card/80 backdrop-blur-lg sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10">
+      <header className="border-b bg-card/90 backdrop-blur-lg sticky top-0 z-50 border-border/50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary to-primary-glow rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary to-primary-glow rounded-lg flex items-center justify-center shadow-glow">
                 <Shield className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
@@ -36,7 +36,7 @@ const Index = () => {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-sm font-medium">Welcome to your Insurance Companion</p>
+              <p className="text-sm font-medium text-foreground">Welcome to your Insurance Companion</p>
               <p className="text-xs text-muted-foreground">Making insurance decisions simple and clear</p>
             </div>
           </div>
@@ -90,7 +90,7 @@ const Index = () => {
         </div>
       </main>
 
-      <footer className="mt-16 border-t bg-muted/20 py-8">
+      <footer className="mt-16 border-t border-border/50 bg-card/30 py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Shield className="w-5 h-5 text-primary" />
