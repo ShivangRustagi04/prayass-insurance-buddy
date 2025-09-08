@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { Shield, MessageCircle, Search, BarChart3 } from "lucide-react";
 import UserProfile from "@/components/UserProfile";
 import PolicyRecommendations from "@/components/PolicyRecommendations";
 import PolicyAnalysis from "@/components/PolicyAnalysis";
 import ChatAssistant from "@/components/ChatAssistant";
 import { UserDetails } from "@/types/user";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
+  const { user, loading, signOut } = useAuth();
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState<UserDetails>({
     age: 30,
     income_range: "₹5 Lakh - ₹7.5 Lakh",
@@ -18,6 +23,30 @@ const Index = () => {
     health_conditions: ["None"],
     language: "English"
   });
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/auth");
+    }
+  }, [user, loading, navigate]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10">
@@ -35,9 +64,14 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Simplifying Insurance for Everyone</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm font-medium text-foreground">Welcome to your Insurance Companion</p>
-              <p className="text-xs text-muted-foreground">Making insurance decisions simple and clear</p>
+            <div className="flex items-center space-x-4">
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground">Welcome back</p>
+                <p className="font-semibold text-foreground">{user.email}</p>
+              </div>
+              <Button variant="outline" onClick={signOut} size="sm">
+                Sign Out
+              </Button>
             </div>
           </div>
         </div>
